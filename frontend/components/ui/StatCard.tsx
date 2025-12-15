@@ -1,66 +1,78 @@
+"use client";
+import { formatNumber } from "@/lib/functions";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
+
 interface ValueProps {
   name: string;
   value: number;
   analysis?: string;
   percent?: number;
   amount?: number;
+  currency?: boolean; //look into how to make a default and also currency formatting
 }
 interface StatCardProps {
   name: string;
   value: ValueProps[];
-  prev: boolean;
+  prev?: boolean;
   amount?: number;
+  currency?: boolean;
 }
 
-const StatCard = ({ name, value, prev, amount }: StatCardProps) => {
+const StatCard = ({ name, value, prev, amount, currency }: StatCardProps) => {
   return (
-    <div className="col-span-12  sm:col-span-6 md:col-span-4 lg:col-span-4 bg-background rounded-md  dark:bg-gray-800 p-4  shadow-md pl-6">
+    <div className="col-span-12 relative sm:col-span-6 md:col-span-4 lg:col-span-4 bg-background rounded-md  dark:bg-gray-800 p-4  shadow-md pl-6">
       <div className="flex pb-2 font-medium text-secondary justify-between items-center">
         <p>{name}</p>
-        <Icon icon="bi:three-dots-vertical" />
+        <SelectDemo />
       </div>
       <p className="text-gray-500 text-sm">Last 7 days</p>
-      <div className="flex pt-5">
+      <div className="flex w-full pt-5">
         {value.map((val) =>
           value.length > 1 ? (
             <div
               key={val.name}
-              className="flex items-center text-center justify-center "
+              className="flex flex-col  w-1/2 justify-between mx-2"
             >
               <p className="pr-1">{val.name}</p>
-              <p className="text-3xl font-semibold text-center text-text-color">
-                ${val.value}
-              </p>
-              <div className="flex pl-2  items-center">
-                {val.analysis === "Up" ? (
-                  <Icon
-                    icon="akar-icons:arrow-up"
-                    className="text-green-500"
-                    width="16"
-                    height="16"
-                  />
-                ) : val.analysis === "Down" ? (
-                  <Icon
-                    icon="akar-icons:arrow-down"
-                    className="text-red-500"
-                    width="16"
-                    height="16"
-                  />
-                ) : null}
-                {val.percent !== undefined && (
-                  <p
-                    className={`text-sm ml-1 ${
-                      val.analysis === "Up"
-                        ? "text-green-500"
-                        : val.analysis === "Down"
-                        ? "text-red-500"
-                        : "text-text-color"
-                    }`}
-                  >
-                    {val.percent}%
-                  </p>
-                )}
+              <div className="text-2xl font-semibold flex  text-text-color">
+                {val.currency === true ? "$" : ""}
+                <p
+                  className={`${val.name == "Cancelled" ? "text-red-500" : ""}`}
+                >
+                  {" "}
+                  {formatNumber(val.value)}
+                </p>
+                <div className="flex pl-2 font-light  items-center">
+                  {val.analysis === "Up" ? (
+                    <Icon
+                      icon="akar-icons:arrow-up"
+                      className="text-green-500"
+                      width="16"
+                      height="16"
+                    />
+                  ) : val.analysis === "Down" ? (
+                    <Icon
+                      icon="akar-icons:arrow-down"
+                      className="text-red-500"
+                      width="16"
+                      height="16"
+                    />
+                  ) : null}
+                  {val.percent !== undefined && (
+                    <p
+                      className={`text-sm ml-1 ${
+                        val.analysis === "Up"
+                          ? "text-green-500"
+                          : val.analysis === "Down"
+                          ? "text-red-500"
+                          : "text-text-color"
+                      }`}
+                    >
+                      {val.percent}%
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           ) : (
@@ -69,7 +81,8 @@ const StatCard = ({ name, value, prev, amount }: StatCardProps) => {
               className="flex items-center text-center justify-center "
             >
               <p className="text-3xl font-semibold text-center text-text-color">
-                ${val.value}
+                {val.currency ? "$" : ""}
+                {formatNumber(val.value)}
               </p>
               <div className="flex pl-2  items-center">
                 <p className="pr-1">{val.name}</p>
@@ -109,7 +122,10 @@ const StatCard = ({ name, value, prev, amount }: StatCardProps) => {
       {prev && (
         <div className="flex items-center pt-2 ">
           <p className="text-sm text-gray-500 ml-1">Previous 7 days</p>{" "}
-          <span className="text-tertiary">({amount})</span>
+          <span className="text-tertiary">
+            ( {currency ? "$" : ""}
+            {amount})
+          </span>
         </div>
       )}
     </div>
@@ -117,3 +133,39 @@ const StatCard = ({ name, value, prev, amount }: StatCardProps) => {
 };
 
 export default StatCard;
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
+
+export function SelectDemo() {
+  const [selectedDuration, setSelectedDuration] = useState<string>("7d");
+
+  const durations = [
+    { label: "Last 24 hours", value: "24h" },
+    { label: "Last 7 days", value: "7d" },
+    { label: "Last 30 days", value: "30d" },
+    { label: "Last 90 days", value: "90d" },
+    { label: "Last 6 months", value: "6m" },
+    { label: "Last year", value: "1y" },
+    { label: "All time", value: "all" },
+  ];
+
+  return (
+    <Select value={selectedDuration} onValueChange={setSelectedDuration}>
+      <SelectTrigger className="w-2 overflow-hidden border-none bg-transparent  shadow-none  ">
+        <Icon icon="bi:three-dots-vertical" className="w-5 h-5" />
+      </SelectTrigger>
+      <SelectContent position="popper" align="start" side="bottom">
+        {durations.map((duration) => (
+          <SelectItem key={duration.value} value={duration.value}>
+            {duration.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}

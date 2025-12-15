@@ -66,3 +66,59 @@ export const adminNavList = [
     path: "/admin-role",
   },
 ];
+
+// DUmmy card data
+export const cardData = [
+  {
+    name: "Total Sales",
+    value: [
+      {
+        name: "Sales",
+        value: 32399,
+        analysis: "Up",
+        percent: 12.4,
+        amount: 600,
+        currency: true,
+      },
+    ],
+    prev: true,
+    amount: 203,
+    currency: true,
+  },
+  {
+    name: "Total Orders",
+    value: [
+      {
+        name: "Order",
+        value: 2399,
+        analysis: "Up",
+        percent: 12.4,
+        amount: 600,
+        currency: false,
+      },
+    ],
+    prev: true,
+    amount: 203,
+    currency: false,
+  },
+  {
+    name: "Pending & Canceled",
+    value: [
+      {
+        name: "Pending",
+        value: 2399,
+        analysis: "Up",
+        percent: 12.4,
+        amount: 600,
+      },
+      {
+        name: "Cancelled",
+        value: 99,
+        analysis: "Down",
+        percent: 12.4,
+        amount: 600,
+      },
+    ],
+    amount: 203,
+  },
+];
