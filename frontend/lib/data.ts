@@ -122,3 +122,34 @@ export const cardData = [
     amount: 203,
   },
 ];
+
+// utils/weekData.js
+export const getThisWeekData = () => [
+  { day: "Mon", value: 186 },
+  { day: "Tue", value: 305 },
+  { day: "Wed", value: 237 },
+  { day: "Thu", value: 173 },
+  { day: "Fri", value: 209 },
+  { day: "Sat", value: 214 },
+  { day: "Sun", value: 198 },
+];
+
+export const getLastWeekData = () => [
+  { day: "Mon", value: 220 },
+  { day: "Tue", value: 280 },
+  { day: "Wed", value: 190 },
+  { day: "Thu", value: 245 },
+  { day: "Fri", value: 267 },
+  { day: "Sat", value: 189 },
+  { day: "Sun", value: 243 },
+];
+
+export const tabledata = [
+  {
+    id: "728ed52f",
+    amount: 100,
+    status: "pending",
+    email: "m@example.com",
+  },
+  // ...
+];

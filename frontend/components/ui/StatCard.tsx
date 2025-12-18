@@ -1,7 +1,6 @@
 "use client";
 import { formatNumber } from "@/lib/functions";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
 
 interface ValueProps {
   name: string;
@@ -24,7 +23,7 @@ const StatCard = ({ name, value, prev, amount, currency }: StatCardProps) => {
     <div className="col-span-12 relative sm:col-span-6 md:col-span-4 lg:col-span-4 bg-background rounded-md  dark:bg-gray-800 p-4  shadow-md pl-6">
       <div className="flex pb-2 font-medium text-secondary justify-between items-center">
         <p>{name}</p>
-        <SelectDemo />
+        <PreiodSelect />
       </div>
       <p className="text-gray-500 text-sm">Last 7 days</p>
       <div className="flex w-full pt-5">
@@ -140,22 +139,22 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { usePreriod } from "../charts/stores/usePeriod";
 
-export function SelectDemo() {
-  const [selectedDuration, setSelectedDuration] = useState<string>("7d");
+export function PreiodSelect() {
+  const { period, setPeriod } = usePreriod();
 
   const durations = [
-    { label: "Last 24 hours", value: "24h" },
-    { label: "Last 7 days", value: "7d" },
-    { label: "Last 30 days", value: "30d" },
-    { label: "Last 90 days", value: "90d" },
-    { label: "Last 6 months", value: "6m" },
+    { label: "Last week", value: "7d" },
+    { label: "Last Month", value: "30d" },
+    { label: "Last 3Months", value: "90d" },
+    { label: "Last 6months", value: "6m" },
     { label: "Last year", value: "1y" },
     { label: "All time", value: "all" },
   ];
 
   return (
-    <Select value={selectedDuration} onValueChange={setSelectedDuration}>
+    <Select value={period} onValueChange={setPeriod}>
       <SelectTrigger className="w-2 overflow-hidden border-none bg-transparent  shadow-none  ">
         <Icon icon="bi:three-dots-vertical" className="w-5 h-5" />
       </SelectTrigger>
