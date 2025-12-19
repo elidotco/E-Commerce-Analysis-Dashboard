@@ -146,8 +146,9 @@ export const getLastWeekData = () => [
 
 export const tabledata = [
   {
-    id: "728ed52f",
+    customer: "728ed52f",
     amount: 100,
+    orderdate: "2023-01-01 10:30", // Include time to the data
     status: "pending",
     email: "m@example.com",
   },

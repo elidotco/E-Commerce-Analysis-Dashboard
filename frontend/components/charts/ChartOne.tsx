@@ -41,7 +41,7 @@ export default function ChartOne() {
   return (
     <div className="">
       <CardContent className=" w-full ">
-        <ChartContainer config={chartConfig}>
+        <ChartContainer className="min-h-40" config={chartConfig}>
           <AreaChart
             accessibilityLayer
             data={chartData}

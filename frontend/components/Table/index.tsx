@@ -25,16 +25,21 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  // formating data  to include order number
+  const formattedData = data.map((item, index) => ({
+    no: index + 1,
+    ...item,
+  }));
   const table = useReactTable({
-    data,
+    data: formattedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-hidden ">
       <Table>
-        <TableHeader>
+        <TableHeader className="px-5">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
