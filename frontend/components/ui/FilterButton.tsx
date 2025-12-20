@@ -4,21 +4,21 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "./select";
 
-const FilterButton = () => {
+const FilterButton = ({ values }: { values: string[] }) => {
   return (
-    // placeholder text shold be white
     <Select>
-      <SelectTrigger className="bg-primary text-white border-none">
+      <SelectTrigger className="bg-primary border-none cursor-pointer text-white">
         <SelectValue placeholder="Filter" />
-        {/* Icon */}
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="pending">Pending</SelectItem>
-        <SelectItem value="processing">Processing</SelectItem>
-        <SelectItem value="paid">Paid</SelectItem>
-        <SelectItem value="failed">Failed</SelectItem>
+        {/* Add SelectItem components here for filter options */}
+        {values.map((value) => (
+          <SelectItem key={value} value={value}>
+            {value.charAt(0).toUpperCase() + value.slice(1)}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

@@ -41,7 +41,7 @@ export default function ChartOne() {
   return (
     <div className="">
       <CardContent className=" w-full ">
-        <ChartContainer className="min-h-40" config={chartConfig}>
+        <ChartContainer className="min-h-[100px]" config={chartConfig}>
           <AreaChart
             accessibilityLayer
             data={chartData}
@@ -49,7 +49,7 @@ export default function ChartOne() {
               left: -20,
               right: 0,
             }}
-            height={500}
+            height={100}
           >
             <CartesianGrid
               vertical={false}

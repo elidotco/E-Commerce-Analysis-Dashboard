@@ -154,3 +154,37 @@ export const tabledata = [
   },
   // ...
 ];
+export type Payment = {
+  product: string;
+  totalOrder: number;
+  status: "stock" | "out of stock" | "discontinued";
+  price: number;
+  image: string;
+};
+
+export const tabledata2: Payment[] = [
+  {
+    product: "Wireless Headphones",
+    totalOrder: 150,
+    status: "stock",
+    price: 299.99,
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
+  },
+  {
+    product: "Smartwatch Pro",
+    totalOrder: 85,
+    status: "out of stock",
+    price: 199.99,
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
+  },
+  {
+    product: "4K Action Camera",
+    totalOrder: 60,
+    status: "discontinued",
+    price: 149.99,
+    image:
+      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop",
+  },
+];
